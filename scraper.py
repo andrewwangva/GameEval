@@ -31,7 +31,7 @@ def get_png(ex_url):
 nrows = 50000
 
 batch_size = 1000
-for i in range(11, nrows//batch_size):
+for i in range(12, nrows//batch_size):
     try:
         puzzles = pd.read_csv('lichess_db_puzzle.csv', skiprows= i* batch_size+1, nrows = batch_size, names = ["PuzzleId","FEN","Moves","Rating","RatingDeviation","Popularity","NbPlays","Themes","GameUrl","OpeningTags"])
         puzzles['pgn'] = puzzles['GameUrl'].progress_apply(get_png)
