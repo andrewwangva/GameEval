@@ -25,6 +25,18 @@ def infer_RLHF(message):
   )
   return response.choices[0].message.content.strip()
 
+def infer_gpt4(message):
+
+  response = client.chat.completions.create(
+    model="gpt-4",
+    temperature= 0,
+    messages=[
+      {"role": "system", "content": SYSTEM_PROMPT},
+      {"role": "user", "content": message},
+    ]
+  )
+  return response.choices[0].message.content.strip()
+
 def infer_instruct(message):
   
   response = client.completions.create(
@@ -40,9 +52,12 @@ acc_cnt = 0
 
 correcy_array = [0 for i in range(len(cleaned_puzzles))]
 for i in range(len(cleaned_puzzles)):
+  if(i % 100 == 0):
+    with open(f"accuracy_GPT{i}.json", 'w') as json_file:
+      json.dump(correcy_array, json_file, indent=4)
   bool_flag = True
   for j in range(len(cleaned_puzzles[i]["puzzle_solution"])):
-    response = infer_instruct(cleaned_puzzles[i]["puzzle_input"][j])
+    response = infer_gpt4(cleaned_puzzles[i]["puzzle_input"][j])
     if(cleaned_puzzles[i]["puzzle_solution"][j] not in response):
       bool_flag = False
       print(i)
@@ -56,5 +71,5 @@ print(acc_cnt)
 
 #print(correcy_array)
 
-with open("accuracy_instruct.json", 'w') as json_file:
+with open("accuracy_GPT4.json", 'w') as json_file:
     json.dump(correcy_array, json_file, indent=4)
