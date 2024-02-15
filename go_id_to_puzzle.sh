@@ -18,3 +18,7 @@ done < "go_ids.txt"
 
 # Wait for all background processes to finish
 wait
+
+python combine_go_sgf.py
+
+wait

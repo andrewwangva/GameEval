@@ -37,9 +37,6 @@ class Puzzle:
         if(rating == None or rating_cnt == None):
             return None
         rating, rating_cnt = int(rating), int(rating_cnt)
-        if(not(puzzle.game_size == 19 and puzzle.date == "2023")):
-            return None
-
         puzzle.initial_state_white = [puzzle_data['initial_state']['white'][i:i+2] for i in range(0, len(puzzle_data['initial_state']['white']), 2)]
         puzzle.initial_state_black = [puzzle_data['initial_state']['black'][i:i+2] for i in range(0, len(puzzle_data['initial_state']['black']), 2)]
         puzzle.initial_player = puzzle_data['initial_player'][0].upper()
@@ -127,3 +124,5 @@ puzzle = Puzzle.from_url(id)
 
 if puzzle is not None:
     puzzle.save(f"go_sgf/output_{id}.sgf")
+else:
+    print(f"Failed to retrieve puzzle data for {id}.")

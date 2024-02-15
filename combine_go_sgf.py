@@ -2,8 +2,8 @@ import os
 import json
 
 # Define the directory containing the SGF files and the output JSON file
-sgf_directory = './sgf_go'
-output_json_file = 'combined_sgf.json'
+sgf_directory = './go_sgf'
+output_json_file = './go_sgf/combined_sgf.json'
 
 # Initialize an empty list to store the SGF data
 sgf_data = []
